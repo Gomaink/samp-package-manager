@@ -5,7 +5,7 @@ from commands import package, gamemode, help
 def main(args):
     if len(args) < 1:
         print("Usage: spm <command>")
-        print("Comandos disponíveis: package, gamemode, help")
+        print("Available commands: package, gamemode, help")
         sys.exit(1)
 
     command = args[0]
