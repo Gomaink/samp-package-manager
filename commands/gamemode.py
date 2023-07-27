@@ -2,16 +2,16 @@ import sys
 import colorama
 
 def gamemode_run():
-    print("Executando a gamemode")
+    pass
 
 def gamemode_build():
-    print("Buildando a gamemode")
+    pass
 
 def gamemode_restart():
-    print("Atualizando a gamemode")
+    pass
 
 def gamemode_stop():
-    print("Parando a gamemode")
+    pass
 
 def main(args):
     if len(args) < 1:
