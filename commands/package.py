@@ -73,7 +73,7 @@ def package_install(package_name):
 
     try:
         if not is_project_initialized():
-            print(f"{colorama.Fore.RED}The project has not yet started. Run 'python app.py init' to launch it.{colorama.Style.RESET_ALL}")
+            print(f"{colorama.Fore.RED}The project has not yet started. Run 'spm init' to launch it.{colorama.Style.RESET_ALL}")
             return
 
         if is_package_installed(package_name):
