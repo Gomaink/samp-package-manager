@@ -165,3 +165,5 @@ app/utils/configs.py
 /pawn.json
 /venv
 commands/__pycache__/
+/compiler
+/gamemodes

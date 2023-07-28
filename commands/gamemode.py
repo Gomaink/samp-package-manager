@@ -1,11 +1,49 @@
 import sys
 import colorama
+import os
+import subprocess
 
+#Utils
+def is_project_initialized():
+    return os.path.exists("pawn.json") and os.path.exists("dependencies")
+
+#Main funcs
 def gamemode_run():
     pass
 
 def gamemode_build():
-    pass
+    colorama.init()
+
+    if not is_project_initialized():
+        print(f"{colorama.Fore.RED}The project has not yet started. Run 'spm init' to launch it.{colorama.Style.RESET_ALL}")
+        return
+
+    gamemodes_path = "gamemodes"
+    if not os.path.exists(gamemodes_path):
+        print(f"{colorama.Fore.RED}Gamemodes folder not found. Create the 'gamemodes' folder and place your gamemode files there.{colorama.Style.RESET_ALL}")
+        return
+
+    gamemode_name = input("Enter your gamemode name (without the .pwn extension): ")
+    gamemode_file = f"{gamemode_name}.pwn"
+    gamemode_input_path = os.path.join(gamemodes_path, gamemode_file)
+
+    if not os.path.exists(gamemode_input_path):
+        print(f"{colorama.Fore.RED}File {gamemode_file} not found in gamemodes folder.{colorama.Style.RESET_ALL}")
+        return
+
+    includes_path = os.path.abspath("dependencies")
+    output_path = os.path.abspath("gamemodes")
+    pawncc_path = os.path.abspath("compiler/pawncc")
+
+    gamemode_output_path = os.path.join(output_path, gamemode_file)
+    compile_command = f"{pawncc_path} -i{includes_path} -o{gamemode_output_path} {gamemode_input_path}"
+
+    print(f"Compiling the gamemode {gamemode_file}...")
+    result = subprocess.run(compile_command, shell=True, stderr=subprocess.PIPE, text=True)
+    if result.returncode != 0:
+        print(result.stderr)
+
+    colorama.deinit()
 
 def gamemode_restart():
     pass
