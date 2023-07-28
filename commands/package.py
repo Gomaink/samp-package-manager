@@ -3,8 +3,12 @@ import sys
 import requests
 import colorama
 import json
+from alive_progress import alive_bar
 
 #Utils
+def is_project_initialized():
+    return os.path.exists("pawn.json") and os.path.exists("dependencies")
+
 def download_file(url, filename):
     response = requests.get(url)
     if response.status_code == 200:
@@ -12,9 +16,6 @@ def download_file(url, filename):
             file.write(response.content)
         return True
     return False
-
-def is_project_initialized():
-    return os.path.exists("pawn.json") and os.path.exists("dependencies")
 
 #Json funcs
 def load_pawn_json():
@@ -86,18 +87,19 @@ def package_install(package_name):
         if response.status_code == 200:
             files = response.json()
             downloaded_files = []
-            for file in files:
-                if file.get('name', '').endswith('.inc'):
-                    download_url = file['download_url']
-                    filename = os.path.basename(download_url)
-                    filepath = os.path.join("dependencies", filename)
-                    if download_file(download_url, filepath):
-                        print(f"{colorama.Fore.GREEN}Downloaded the file: {filename}{colorama.Style.RESET_ALL}")
-                        downloaded_files.append(filename)
-                    else:
-                        print(f"{colorama.Fore.RED}Failed to download file: {filename}{colorama.Style.RESET_ALL}")
-
+            with alive_bar(len(files), title=f"Downloading {package_name}", bar="blocks", spinner="dots_waves2") as bar:
+                for file in files:
+                    if file.get('name', '').endswith('.inc'):
+                        download_url = file['download_url']
+                        filename = os.path.basename(download_url)
+                        filepath = os.path.join("dependencies", filename)
+                        if download_file(download_url, filepath):
+                            downloaded_files.append(filename)
+                        else:
+                            print(f"{colorama.Fore.RED}Failed to download file: {filename}{colorama.Style.RESET_ALL}")
+                    bar()
             update_pawn_json(package_name, downloaded_files)
+            print(f"{colorama.Fore.GREEN}Package {package_name} installed successfully.{colorama.Style.RESET_ALL}")
 
         else:
             print(f"{colorama.Fore.RED}Repository not found.{colorama.Style.RESET_ALL}")
