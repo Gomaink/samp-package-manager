@@ -8,7 +8,7 @@ Below is an explanation of what SPM can provide you:
 - **Gamemode manager:** You can manage your server/gamemode using the terminal, you can compile your gamemode using an updated compiler and already linked to the packages you downloaded, and you can also start your gamemode in the terminal.
 - **Standard server:** You can also start a project from scratch without having to download anything through your browser, SPM does that for you.
 
-##Package & gamemode tools
+## Package & gamemode tools
 In case you want to install a new package to your gamemode, you can simply use:
 `spm package install Gomaink/tutorial_inc`
 
