@@ -99,7 +99,7 @@ def package_install(package_name):
                             print(f"{colorama.Fore.RED}Failed to download file: {filename}{colorama.Style.RESET_ALL}")
                     bar()
             update_pawn_json(package_name, downloaded_files)
-            print(f"{colorama.Fore.GREEN}Package {package_name} installed successfully.{colorama.Style.RESET_ALL}")
+            print(f"{colorama.Fore.MAGENTA}Package {package_name} installed successfully.{colorama.Style.RESET_ALL}")
 
         else:
             print(f"{colorama.Fore.RED}Repository not found.{colorama.Style.RESET_ALL}")
@@ -128,7 +128,7 @@ def package_remove(package_name):
         del data["dependencies_files"][package_name]
         save_pawn_json(data)
 
-        print(f"{colorama.Fore.GREEN}Package {package_name} removed successfully.{colorama.Style.RESET_ALL}")
+        print(f"{colorama.Fore.MAGENTA}Package {package_name} removed successfully.{colorama.Style.RESET_ALL}")
     elif package_files:
         remove_package_files(package_files)
         print(f"{colorama.Fore.GREEN}File(s) {', '.join(package_files)} removed successfully.{colorama.Style.RESET_ALL}")
