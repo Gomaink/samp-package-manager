@@ -1,6 +1,9 @@
 # SA-MP Package Manager
 
 SPM is a command line development tool to get productivity developing pawn scripts for SA-MP
+
+--> This project was inspired by the SAMPCTL made by Southclaws. <--
+
 Below is an explanation of what SPM can provide you:
 
 - **Command-line Tools**: Inspired by NPM, SPM has the power to manage your packages/server using just the terminal, without leaving your project to download packages using a browser.
