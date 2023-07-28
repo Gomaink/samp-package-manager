@@ -1,6 +1,7 @@
 import os
 import json
 import colorama
+from .package import package_install
 
 def create_dependencies_folder():
     if not os.path.exists("dependencies"):
@@ -21,6 +22,8 @@ def init():
 
     create_dependencies_folder()
     create_pawn_json()
+    print("Installing standard library...")
+    package_install("pawn-lang/samp-stdlib")
     print(f"{colorama.Fore.GREEN}Project launched successfully! The file 'pawn.json' and the folder 'dependencies' were created.{colorama.Style.RESET_ALL}")
 
 if __name__ == "__main__":
