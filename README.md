@@ -22,7 +22,9 @@ Or run it using:
 
 Installation is simple, just choose your operating system and follow the steps
 - [Windows](https://github.com/Southclaws/sampctl/wiki/Windows)
-  
+
+## Getting started
+Starting to use samp package manager is very simple, you can learn it by clicking <a href="https://github.com/Southclaws/sampctl/wiki/Getting-Started">here</a>.
 ## Usage
 ![](https://i.imgur.com/dAK5h03.png)
 
