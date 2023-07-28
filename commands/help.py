@@ -13,9 +13,7 @@ def print_help():
     \t{colorama.Fore.CYAN}package list{colorama.Style.RESET_ALL} - List of installed packages\n\
     Gamemode commands:\n\
     \t{colorama.Fore.CYAN}gamemode run{colorama.Style.RESET_ALL} - Execute a gamemode (samp-server)\n\
-    \t{colorama.Fore.CYAN}gamemode stop{colorama.Style.RESET_ALL} - Stop a gamemode (samp-server)\n\
-    \t{colorama.Fore.CYAN}gamemode build{colorama.Style.RESET_ALL} - Build a gamemode (compile)\n\
-    \t{colorama.Fore.CYAN}gamemode restart{colorama.Style.RESET_ALL} - Restart a gamemode (gmx)")
+    \t{colorama.Fore.CYAN}gamemode build{colorama.Style.RESET_ALL} - Build a gamemode (compile)\n")
     colorama.deinit()
 
 def main(args):
