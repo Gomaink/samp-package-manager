@@ -18,5 +18,14 @@ You can also compile your gamemode using:
 Or run it using:
 `spm gamemode run`
 
-### Commands
+## Installation
+
+Installation is simple, just choose your operating system and follow the steps
+- [Windows](https://github.com/Southclaws/sampctl/wiki/Windows)
+  
+## Usage
 ![](https://i.imgur.com/dAK5h03.png)
+
+[For a list of commands, click here.](https://github.com/samp-package-manager/samp-package-manager/wiki/Commands)
+
+[Or visit the Wiki site for documentation on each feature.](https://github.com/samp-package-manager/samp-package-manager/wiki).
