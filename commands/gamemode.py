@@ -9,7 +9,18 @@ def is_project_initialized():
 
 #Main funcs
 def gamemode_run():
-    pass
+    samp_server_path = "samp-server.exe"
+
+    if not os.path.exists(samp_server_path):
+        print(f"{colorama.Fore.RED}'samp-server.exe' not found in the current directory.{colorama.Style.RESET_ALL}")
+        return
+
+    try:
+        subprocess.run(samp_server_path, shell=True)
+    except KeyboardInterrupt:
+        print(f"{colorama.Fore.RED}The process was interrupted by the user.{colorama.Style.RESET_ALL}")
+    except Exception as e:
+        print(f"{colorama.Fore.RED}Error while running 'samp-server.exe': {str(e)}{colorama.Style.RESET_ALL}")
 
 def gamemode_build():
     colorama.init()
@@ -45,12 +56,6 @@ def gamemode_build():
 
     colorama.deinit()
 
-def gamemode_restart():
-    pass
-
-def gamemode_stop():
-    pass
-
 def main(args):
     if len(args) < 1:
         print("Usage: spm gamemode <command>")
@@ -62,10 +67,6 @@ def main(args):
         gamemode_run()
     elif action == "build":
         gamemode_build()
-    elif action == "restart":
-        gamemode_restart()
-    elif action == "stop":
-        gamemode_stop()
     else:
         print(f"{colorama.Fore.RED}Invalid command. Use spm help for more informations.{colorama.Style.RESET_ALL}")
 
