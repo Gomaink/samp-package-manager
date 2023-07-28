@@ -3,7 +3,7 @@ import sys
 import requests
 import colorama
 import json
-from alive_progress import alive_bar
+from tqdm import tqdm
 
 #Utils
 def is_project_initialized():
@@ -86,8 +86,12 @@ def package_install(package_name):
         response = requests.get(url)
         if response.status_code == 200:
             files = response.json()
+            if files is None:
+                print(f"{colorama.Fore.RED}Failed to fetch package files from the repository.{colorama.Style.RESET_ALL}")
+                return
+            
             downloaded_files = []
-            with alive_bar(len(files), title=f"Downloading {package_name}", bar="blocks", spinner="dots_waves2") as bar:
+            with tqdm(total=len(files), desc=f"Downloading {package_name}") as pbar:
                 for file in files:
                     if file.get('name', '').endswith('.inc'):
                         download_url = file['download_url']
@@ -97,7 +101,7 @@ def package_install(package_name):
                             downloaded_files.append(filename)
                         else:
                             print(f"{colorama.Fore.RED}Failed to download file: {filename}{colorama.Style.RESET_ALL}")
-                    bar()
+                    pbar.update()
             update_pawn_json(package_name, downloaded_files)
             print(f"{colorama.Fore.MAGENTA}Package {package_name} installed successfully.{colorama.Style.RESET_ALL}")
 
@@ -113,7 +117,7 @@ def package_remove(package_name):
     colorama.init()
 
     if not is_project_initialized():
-        print(f"{colorama.Fore.RED}The project has not yet started. Run 'python app.py init' to launch it.{colorama.Style.RESET_ALL}")
+        print(f"{colorama.Fore.RED}The project has not yet started. Run 'spm init' to launch it.{colorama.Style.RESET_ALL}")
         return
 
     data = load_pawn_json()
@@ -141,7 +145,7 @@ def package_list():
     colorama.init()
 
     if not is_project_initialized():
-        print(f"{colorama.Fore.RED}The project has not yet started. Run 'python app.py init' to launch it.{colorama.Style.RESET_ALL}")
+        print(f"{colorama.Fore.RED}The project has not yet started. Run 'spm init' to launch it.{colorama.Style.RESET_ALL}")
         return
 
     data = load_pawn_json()
