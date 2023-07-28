@@ -13,6 +13,9 @@ def download_file(url, filename):
         return True
     return False
 
+def is_project_initialized():
+    return os.path.exists("pawn.json") and os.path.exists("dependencies")
+
 #Json funcs
 def load_pawn_json():
     pawn_json_file = "pawn.json"
@@ -28,19 +31,15 @@ def save_pawn_json(data):
     with open(pawn_json_file, 'w') as file:
         json.dump(data, file, indent=4)
 
-def update_pawn_json(package_name, files_downloaded):
-    data = load_pawn_json()
-    dependencies = data.get("dependencies", [])
-    dependencies.append(package_name)
-    data["dependencies"] = dependencies
+def update_pawn_json(package_name, downloaded_files):
+    with open("pawn.json", "r") as json_file:
+        data = json.load(json_file)
 
-    dependencies_files = data.get("dependencies_files", {})
-    dependencies_files[package_name] = files_downloaded
-    data["dependencies_files"] = dependencies_files
+    data["dependencies"].append(package_name)
+    data["dependencies_files"][package_name] = downloaded_files
 
-    pawn_json_file = "pawn.json"
-    with open(pawn_json_file, 'w') as file:
-        json.dump(data, file, indent=4)
+    with open("pawn.json", "w") as json_file:
+        json.dump(data, json_file, indent=4)
 
 #Package funcs
 def is_valid_package_name(package_name):
@@ -58,15 +57,24 @@ def remove_package_files(package_files):
             os.remove(filepath)
 
 def is_package_installed(package_name):
-    data = load_pawn_json()
-    dependencies = data.get("dependencies", [])
-    return package_name in dependencies
+    if not is_project_initialized():
+        return False
+
+    with open("pawn.json", "r") as json_file:
+        data = json.load(json_file)
+
+    return package_name in data["dependencies"]
+
 
 #Main funcs
 def package_install(package_name):
     colorama.init()
 
     try:
+        if not is_project_initialized():
+            print(f"{colorama.Fore.RED}The project has not yet started. Run 'python app.py init' to launch it.{colorama.Style.RESET_ALL}")
+            return
+
         if is_package_installed(package_name):
             print(f"{colorama.Fore.RED}Package {package_name} is already installed.{colorama.Style.RESET_ALL}")
             return
@@ -76,8 +84,6 @@ def package_install(package_name):
 
         response = requests.get(url)
         if response.status_code == 200:
-            if not os.path.exists("dependencies"):
-                os.makedirs("dependencies")
             files = response.json()
             downloaded_files = []
             for file in files:
@@ -104,6 +110,10 @@ def package_install(package_name):
 def package_remove(package_name):
     colorama.init()
 
+    if not is_project_initialized():
+        print(f"{colorama.Fore.RED}The project has not yet started. Run 'python app.py init' to launch it.{colorama.Style.RESET_ALL}")
+        return
+
     data = load_pawn_json()
     dependencies = data.get("dependencies", [])
     package_files = get_package_files(package_name)
@@ -127,6 +137,10 @@ def package_remove(package_name):
 
 def package_list():
     colorama.init()
+
+    if not is_project_initialized():
+        print(f"{colorama.Fore.RED}The project has not yet started. Run 'python app.py init' to launch it.{colorama.Style.RESET_ALL}")
+        return
 
     data = load_pawn_json()
     dependencies = data.get("dependencies", [])
