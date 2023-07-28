@@ -21,7 +21,7 @@ Or run it using:
 ## Installation
 
 Installation is simple, just choose your operating system and follow the steps
-- [Windows](https://github.com/Southclaws/sampctl/wiki/Windows)
+- [Windows](https://github.com/samp-package-manager/samp-package-manager/wiki/Windows)
 
 ## Getting started
 Starting to use samp package manager is very simple, you can learn it by clicking <a href="https://github.com/samp-package-manager/samp-package-manager/wiki/Getting-Started">here</a>.
