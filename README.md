@@ -1,4 +1,4 @@
-# SA-MP PACKAGE MANAGER
+# SA-MP Package Manager
 
 SPM is a command line development tool to get productivity developing pawn scripts for SA-MP
 Below is an explanation of what SPM can provide you:
