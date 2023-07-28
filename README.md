@@ -18,5 +18,5 @@ You can also compile your gamemode using:
 Or run it using:
 `spm gamemode run`
 
-###Commands
+### Commands
 ![](https://i.imgur.com/dAK5h03.png)
